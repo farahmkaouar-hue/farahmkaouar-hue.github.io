@@ -79,6 +79,41 @@ footer a { color: var(--accent); }
   nav .navlinks { display: none; }
   .project summary .kind { display: none; }
 }
+
+/* couleurs et vie */
+:root[data-theme="dark"] .actions a.main, :root[data-theme="dark"] .filters button.on { color: #10161d; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .actions a.main, :root:not([data-theme="light"]) .filters button.on { color: #10161d; } }
+:root { --c-risque: #2563b0; --c-actu: #128a6b; --c-ia: #7b4fc9; --c-stage: #c7781a; --hero1: #e8f0fb; --hero2: #f1ebfb; --hero3: #e6f5ef; }
+:root[data-theme="dark"] { --c-risque: #6ea3e8; --c-actu: #4cc2a0; --c-ia: #ad8cf0; --c-stage: #e9a54d; --hero1: #18273a; --hero2: #241d36; --hero3: #15302a; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --c-risque: #6ea3e8; --c-actu: #4cc2a0; --c-ia: #ad8cf0; --c-stage: #e9a54d; --hero1: #18273a; --hero2: #241d36; --hero3: #15302a; } }
+.lead { background: linear-gradient(135deg, var(--hero1) 0%, var(--hero2) 55%, var(--hero3) 100%); border-radius: 18px; padding: 34px 34px 28px; margin-top: 8px; }
+.lead h1 { margin-top: 14px; }
+.avatar { width: 64px; height: 64px; border-radius: 50%; display: grid; place-items: center; font: 600 22px/1 -apple-system, "Segoe UI", Calibri, sans-serif; color: #fff; background: linear-gradient(135deg, var(--c-risque), var(--c-ia)); box-shadow: 0 6px 18px rgba(37, 99, 176, .25); }
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 26px 0 0; }
+.stat { background: var(--card); border-radius: 12px; padding: 14px 14px 12px; border-top: 4px solid var(--c, var(--accent)); }
+.stat b { display: block; font: 700 1.5rem/1.1 -apple-system, "Segoe UI", Calibri, sans-serif; color: var(--c, var(--accent)); }
+.stat span { display: block; margin-top: 6px; font: 13px/1.35 -apple-system, "Segoe UI", Calibri, sans-serif; color: var(--soft); }
+.stat.r { --c: var(--c-risque); } .stat.a { --c: var(--c-actu); } .stat.i { --c: var(--c-ia); } .stat.s { --c: var(--c-stage); }
+h2 { position: relative; padding-bottom: 8px; }
+h2::after { content: ""; position: absolute; left: 0; bottom: 0; width: 44px; height: 4px; border-radius: 2px; background: linear-gradient(90deg, var(--c-risque), var(--c-ia)); }
+.filters button[data-f="risque"] { --c: var(--c-risque); } .filters button[data-f="actuariat"] { --c: var(--c-actu); }
+.filters button[data-f="ia"] { --c: var(--c-ia); } .filters button[data-f="stage"] { --c: var(--c-stage); } .filters button[data-f="tous"] { --c: var(--accent); }
+.filters button { border-color: var(--c); color: var(--c); }
+.filters button.on { background: var(--c); border-color: var(--c); color: #fff; }
+.project { border-left: 4px solid var(--c, var(--line)); padding-left: 16px; border-radius: 2px; transition: background .2s, transform .2s; }
+.project:hover { background: var(--card); transform: translateX(3px); }
+.project[data-tags^="risque"] { --c: var(--c-risque); } .project[data-tags^="actuariat"] { --c: var(--c-actu); }
+.project[data-tags^="ia"] { --c: var(--c-ia); } .project[data-tags^="stage"] { --c: var(--c-stage); }
+.project summary .kind { color: var(--c); font-weight: 600; }
+.project summary .sign { color: var(--c); }
+.body .link { color: var(--c); font-weight: 600; }
+.timeline { border-left-color: transparent; border-image: linear-gradient(var(--c-stage), var(--c-risque), var(--c-ia)) 1; }
+.timeline li::before { border-color: var(--c-ia); }
+.now li::marker { color: var(--c-ia); }
+.reveal { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease; }
+.reveal.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } .project:hover { transform: none; } }
+@media (max-width: 560px) { .lead { padding: 24px 20px 20px; } .stats { grid-template-columns: repeat(2, 1fr); } }
 </style>
 </head>
 <body>
@@ -100,6 +135,7 @@ footer a { color: var(--accent); }
 <div class="fr" lang="fr">
 
 <header class="lead">
+  <div class="avatar" aria-hidden="true">FM</div>
   <h1>Je modélise le risque, surtout celui des banques et des assureurs.</h1>
   <p>Je suis en dernière année d'école d'ingénieur à l'ESSAI, à Tunis, en statistique et analyse de l'information. Ce qui m'intéresse le plus : comprendre pourquoi un client fait défaut, combien un sinistre va coûter, et comment l'IA peut aider sans inventer de chiffres.</p>
   <p class="soft">Je cherche un stage de fin d'études à partir de janvier 2027, en risque de crédit, en actuariat ou en data science appliquée à la finance.</p>
@@ -109,9 +145,15 @@ footer a { color: var(--accent); }
     <a href="https://www.linkedin.com/in/farah-mkaouar-b465a9260">LinkedIn</a>
     <a href="https://github.com/farahmkaouar-hue">GitHub</a>
   </div>
+  <div class="stats">
+    <div class="stat r"><b>0,82</b><span>AUC du score de crédit</span></div>
+    <div class="stat r"><b>×2,6</b><span>pertes attendues sous le scénario COVID-19</span></div>
+    <div class="stat i"><b>95 %</b><span>précision de l'agent IA de crédit</span></div>
+    <div class="stat s"><b>3</b><span>stages : banque, santé, industrie</span></div>
+  </div>
 </header>
 
-<section id="projets">
+<section id="projets" class="reveal">
   <h2>Projets</h2>
   <p class="sub">Cliquez sur un projet pour voir le détail.</p>
   <div class="filters" role="group" aria-label="Filtrer les projets">
@@ -226,7 +268,7 @@ footer a { color: var(--accent); }
   </div>
 </section>
 
-<section>
+<section class="reveal">
   <h2>En ce moment</h2>
   <ul class="now">
     <li>La couverture d'une option par apprentissage par renforcement, dans un marché à volatilité stochastique (modèle de Heston).</li>
@@ -234,7 +276,7 @@ footer a { color: var(--accent); }
   </ul>
 </section>
 
-<section id="parcours">
+<section id="parcours" class="reveal">
   <h2>Parcours</h2>
   <ul class="timeline">
     <li><div class="when">2026</div><b>Stage à l'UBCI</b>, risque bancaire et data</li>
@@ -257,6 +299,7 @@ footer a { color: var(--accent); }
 <div class="en" lang="en">
 
 <header class="lead">
+  <div class="avatar" aria-hidden="true">FM</div>
   <h1>I model risk, mostly for banks and insurers.</h1>
   <p>I am in my final year of engineering school at ESSAI in Tunis, studying statistics and data analysis. What interests me most: understanding why a borrower defaults, how much a claim will cost, and how AI can help without making up numbers.</p>
   <p class="soft">I am looking for an end-of-studies internship starting from January 2027, in credit risk, actuarial science or data science applied to finance.</p>
@@ -266,9 +309,15 @@ footer a { color: var(--accent); }
     <a href="https://www.linkedin.com/in/farah-mkaouar-b465a9260">LinkedIn</a>
     <a href="https://github.com/farahmkaouar-hue">GitHub</a>
   </div>
+  <div class="stats">
+    <div class="stat r"><b>0.82</b><span>AUC of the credit score</span></div>
+    <div class="stat r"><b>×2.6</b><span>expected losses under the COVID-19 scenario</span></div>
+    <div class="stat i"><b>95%</b><span>accuracy of the AI credit agent</span></div>
+    <div class="stat s"><b>3</b><span>internships: banking, health, industry</span></div>
+  </div>
 </header>
 
-<section id="projects">
+<section id="projects" class="reveal">
   <h2>Projects</h2>
   <p class="sub">Click a project to see the details.</p>
   <div class="filters" role="group" aria-label="Filter projects">
@@ -383,7 +432,7 @@ footer a { color: var(--accent); }
   </div>
 </section>
 
-<section>
+<section class="reveal">
   <h2>Currently</h2>
   <ul class="now">
     <li>Hedging an option with reinforcement learning in a stochastic-volatility market (Heston model).</li>
@@ -391,7 +440,7 @@ footer a { color: var(--accent); }
   </ul>
 </section>
 
-<section id="background">
+<section id="background" class="reveal">
   <h2>Background</h2>
   <ul class="timeline">
     <li><div class="when">2026</div><b>Internship at UBCI</b>, banking risk and data</li>
@@ -454,6 +503,14 @@ footer a { color: var(--accent); }
     root.setAttribute('lang', next);
     try { localStorage.setItem('lang', next); } catch (e) {}
   });
+
+
+  // Apparition au défilement
+  var els = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) { entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { threshold: 0.08 });
+    els.forEach(function (el) { io.observe(el); });
+  } else { els.forEach(function (el) { el.classList.add('in'); }); }
 
   // Theme
   try { var saved = localStorage.getItem('theme'); if (saved) root.setAttribute('data-theme', saved); } catch (e) {}
