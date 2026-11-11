@@ -147,7 +147,7 @@ h2::after { content: ""; position: absolute; left: 0; bottom: 0; width: 36px; he
     <a href="https://github.com/farahmkaouar-hue">GitHub</a>
   </div>
   <div class="stats">
-    <div class="stat r"><b>0,82</b><span>AUC du score de crédit</span></div>
+    <div class="stat a"><b>78 %</b><span>des clients intéressés atteints en contactant 30 % de la base</span></div>
     <div class="stat r"><b>×2,6</b><span>pertes attendues sous le scénario COVID-19</span></div>
     <div class="stat i"><b>95 %</b><span>précision de l'agent IA de crédit</span></div>
     <div class="stat s"><b>3</b><span>stages : banque, santé, industrie</span></div>
@@ -178,17 +178,17 @@ h2::after { content: ""; position: absolute; left: 0; bottom: 0; width: 36px; he
   </details>
 
   <details class="project" data-tags="risque">
-    <summary><div><h3>Score de crédit</h3><p class="what">Régression logistique et échelle de notation</p></div><span class="kind">Projet ESSAI</span><span class="sign">+</span></summary>
+    <summary><div><h3>Score de crédit</h3><p class="what">Grille de score validée hors période</p></div><span class="kind">Projet ESSAI · 2025-2026</span><span class="sign">+</span></summary>
     <div class="body"><dl>
       <dt>Le problème</dt><dd>Prédire quels clients particuliers auront plus de 90 jours de retard de paiement dans l'année.</dd>
-      <dt>Ce que j'ai fait</dt><dd>Préparation des données, création de ratios d'endettement, sélection des variables par Information Value, régression logistique, puis regroupement des clients en classes de risque.</dd>
-      <dt>Résultat</dt><dd>AUC de 0,82 sur l'échantillon de test et une échelle de 4 classes dont le taux de défaut passe de 0,5 % à 15,8 %. Avec seulement 35 défauts dans le test, j'ai dû réduire le nombre de classes pour garder une échelle cohérente.</dd>
+      <dt>Ce que j'ai fait</dt><dd>Sur 5 752 observations de 2 289 clients (2018 à 2021) : encodage WoE, sélection par Information Value et par stabilité dans le temps (PSI), régression logistique sans rééquilibrage, grille de points et échelle de notation. Apprentissage sur 2018-2020, test sur 2021, validation croisée groupée par client.</dd>
+      <dt>Résultat</dt><dd>Le test 2021 a révélé une rupture de données : un ratio change complètement de distribution (PSI de 1,72). Sans cette variable, la grille reste calibrée : 2,0 % de défauts prédits pour 2,2 % observés. Un gradient boosting, testé comme modèle challenger, discrimine mieux (AUC de 0,80).</dd>
     </dl>
     <a class="link" href="https://github.com/farahmkaouar-hue/scoring-credit">Voir le notebook sur GitHub</a></div>
   </details>
 
   <details class="project" data-tags="risque">
-    <summary><div><h3>IFRS 9 et stress tests</h3><p class="what">Pertes attendues sous 7 scénarios</p></div><span class="kind">Projet ESSAI</span><span class="sign">+</span></summary>
+    <summary><div><h3>IFRS 9 et stress tests</h3><p class="what">Pertes attendues sous 7 scénarios</p></div><span class="kind">Projet ESSAI · 2026</span><span class="sign">+</span></summary>
     <div class="body"><dl>
       <dt>Le problème</dt><dd>Combien un portefeuille de crédits perdrait-il en cas de crise ?</dd>
       <dt>Ce que j'ai fait</dt><dd>Estimation de la PD, de la LGD et de l'EAD sur un portefeuille Lending Club, calcul des pertes attendues par stage IFRS 9, puis sept scénarios de stress, dont la crise de 2008 et le COVID-19.</dd>
@@ -199,17 +199,27 @@ h2::after { content: ""; position: absolute; left: 0; bottom: 0; width: 36px; he
   </details>
 
   <details class="project" data-tags="actuariat">
-    <summary><div><h3>Tarification automobile et sinistres</h3><p class="what">Sinistres graves, prime pure, prédiction</p></div><span class="kind">Projet ESSAI</span><span class="sign">+</span></summary>
+    <summary><div><h3>Tarification automobile et sinistres</h3><p class="what">Sinistres graves, prime pure, prédiction</p></div><span class="kind">Projet ESSAI · 2026</span><span class="sign">+</span></summary>
     <div class="body"><dl>
       <dt>Le problème</dt><dd>Fixer le prix d'une assurance auto quand quelques sinistres très coûteux faussent les moyennes.</dd>
       <dt>Ce que j'ai fait</dt><dd>Contrôles de qualité sur environ 21 600 contrats, séparation des sinistres graves par la méthode POT (loi de Pareto généralisée), calcul de la prime pure, puis prédiction de la survenance d'un sinistre sur 58 592 polices.</dd>
-      <dt>Résultat</dt><dd>Une prime pure de 763 € par année-police. La prédiction des sinistres reste difficile (AUC autour de 0,62) : les variables disponibles n'expliquent qu'une petite partie du risque.</dd>
+      <dt>Résultat</dt><dd>Une prime pure de 763 € par année-police. Pour la prédiction, six modèles réglés sans fuite d'information atteignent une AUC d'environ 0,66 : en ciblant 30 % des polices, on capte la moitié des sinistres.</dd>
     </dl>
     <a class="link" href="https://github.com/farahmkaouar-hue/tarification-sinistres-auto">Voir les notebooks sur GitHub</a></div>
   </details>
 
+  <details class="project" data-tags="actuariat ia">
+    <summary><div><h3>Vente croisée en assurance</h3><p class="what">381 109 assurés santé</p></div><span class="kind">Projet · 2026</span><span class="sign">+</span></summary>
+    <div class="body"><dl>
+      <dt>Le problème</dt><dd>Parmi les clients d'une assurance santé, lesquels seraient intéressés par une assurance automobile ? Seuls 12 % le sont.</dd>
+      <dt>Ce que j'ai fait</dt><dd>Des pipelines sans fuite d'information, cinq méthodes de rééquilibrage réglées et comparées, une sélection de variables propre à chaque modèle, quatre modèles réglés et un seuil de décision choisi sur l'apprentissage. Interprétation par SHAP, LIME et contrefactuels.</dd>
+      <dt>Résultat</dt><dd>AUC de 0,85 sur le test : en contactant 30 % des clients, on atteint 78 % des intéressés. Le canal de vente est le seul levier sur lequel l'entreprise peut agir.</dd>
+    </dl>
+    <a class="link" href="https://github.com/farahmkaouar-hue/vente-croisee-assurance">Voir le notebook sur GitHub</a></div>
+  </details>
+
   <details class="project" data-tags="ia risque">
-    <summary><div><h3>Agent IA de pré-qualification de crédit</h3><p class="what">Projet en binôme</p></div><span class="kind">Projet ESSAI</span><span class="sign">+</span></summary>
+    <summary><div><h3>Agent IA de pré-qualification de crédit</h3><p class="what">Projet en binôme</p></div><span class="kind">Projet ESSAI · 2026</span><span class="sign">+</span></summary>
     <div class="body"><dl>
       <dt>Le problème</dt><dd>Un assistant qui répond à des demandes de crédit doit appliquer la politique de la banque sans jamais inventer un montant.</dd>
       <dt>Ce que j'ai fait</dt><dd>Un agent LLM qui consulte les données du client, fait les calculs avec un simulateur de prêt plutôt que de les estimer, cherche dans la politique de crédit et renvoie vers un conseiller dans les cas limites.</dd>
@@ -219,7 +229,7 @@ h2::after { content: ""; position: absolute; left: 0; bottom: 0; width: 36px; he
   </details>
 
   <details class="project" data-tags="ia actuariat">
-    <summary><div><h3>ActuaNLP</h3><p class="what">Lecture automatique des rapports d'assureurs, en binôme</p></div><span class="kind">Projet ESSAI</span><span class="sign">+</span></summary>
+    <summary><div><h3>ActuaNLP</h3><p class="what">Lecture automatique des rapports d'assureurs, en binôme</p></div><span class="kind">Projet ESSAI · 2026</span><span class="sign">+</span></summary>
     <div class="body"><dl>
       <dt>Le problème</dt><dd>Les chiffres clés des assureurs tunisiens sont enfermés dans des rapports annuels en PDF.</dd>
       <dt>Ce que j'ai fait</dt><dd>Un pipeline qui lit 48 rapports (OCR, repérage des bonnes pages, extraction des tableaux), vérifie les montants avec les identités comptables et calcule les ratios de 15 compagnies.</dd>
@@ -229,7 +239,7 @@ h2::after { content: ""; position: absolute; left: 0; bottom: 0; width: 36px; he
   </details>
 
   <details class="project" data-tags="ia">
-    <summary><div><h3>Prix juste d'un logement Airbnb</h3><p class="what">485 128 annonces dans 15 villes</p></div><span class="kind">Projet</span><span class="sign">+</span></summary>
+    <summary><div><h3>Prix juste d'un logement Airbnb</h3><p class="what">485 128 annonces dans 15 villes</p></div><span class="kind">Projet · 2026</span><span class="sign">+</span></summary>
     <div class="body"><dl>
       <dt>Le problème</dt><dd>Estimer le prix juste d'un logement, et savoir si le modèle tient dans une ville qu'il n'a jamais vue.</dd>
       <dt>Ce que j'ai fait</dt><dd>Nettoyage des données Inside Airbnb, analyse des avis, modèle LightGBM comparé à un réseau de neurones, et fourchettes de prix à 90 %.</dd>
@@ -259,9 +269,10 @@ h2::after { content: ""; position: absolute; left: 0; bottom: 0; width: 36px; he
   </details>
 
   <details class="project" data-tags="ia">
-    <summary><div><h3>Scraping et analyse de produits</h3><p class="what">Environ 330 produits cosmétiques</p></div><span class="kind">Projet</span><span class="sign">+</span></summary>
+    <summary><div><h3>Scraping et analyse de produits</h3><p class="what">288 produits cosmétiques, collecte automatisée</p></div><span class="kind">Projet · 2025</span><span class="sign">+</span></summary>
     <div class="body"><dl>
-      <dt>Ce que j'ai fait</dt><dd>Collecte des produits d'un site de vente en ligne avec Selenium, segmentation par K-Means et prédiction du prix à partir du texte des fiches.</dd>
+      <dt>Ce que j'ai fait</dt><dd>Un scraper Selenium relançable en une commande, puis une analyse avec validation croisée imbriquée : ce qui explique le prix, reconnaissance des best-sellers et segmentation par K-Means.</dd>
+      <dt>Résultat</dt><dd>La catégorie et les labels expliquent 43 % des écarts de prix. La fiche produit seule ne suffit pas à reconnaître un best-seller (AUC de 0,65).</dd>
     </dl>
     <a class="link" href="https://github.com/farahmkaouar-hue/scraping-analyse-ecommerce">Voir les notebooks sur GitHub</a></div>
   </details>
@@ -311,7 +322,7 @@ h2::after { content: ""; position: absolute; left: 0; bottom: 0; width: 36px; he
     <a href="https://github.com/farahmkaouar-hue">GitHub</a>
   </div>
   <div class="stats">
-    <div class="stat r"><b>0.82</b><span>AUC of the credit score</span></div>
+    <div class="stat a"><b>78%</b><span>of interested customers reached by contacting 30% of the base</span></div>
     <div class="stat r"><b>×2.6</b><span>expected losses under the COVID-19 scenario</span></div>
     <div class="stat i"><b>95%</b><span>accuracy of the AI credit agent</span></div>
     <div class="stat s"><b>3</b><span>internships: banking, health, industry</span></div>
@@ -342,17 +353,17 @@ h2::after { content: ""; position: absolute; left: 0; bottom: 0; width: 36px; he
   </details>
 
   <details class="project" data-tags="risque">
-    <summary><div><h3>Credit scoring</h3><p class="what">Logistic regression and rating scale</p></div><span class="kind">ESSAI project</span><span class="sign">+</span></summary>
+    <summary><div><h3>Credit scoring</h3><p class="what">Scorecard validated out of time</p></div><span class="kind">ESSAI project · 2025-2026</span><span class="sign">+</span></summary>
     <div class="body"><dl>
       <dt>The problem</dt><dd>Predict which retail clients will be more than 90 days late on a payment within the year.</dd>
-      <dt>What I did</dt><dd>Data preparation, debt ratios, variable selection with Information Value, logistic regression, then grouping clients into risk grades.</dd>
-      <dt>Result</dt><dd>An AUC of 0.82 on the test set and a 4-grade scale whose default rate goes from 0.5% to 15.8%. With only 35 defaults in the test set, I had to reduce the number of grades to keep a consistent scale.</dd>
+      <dt>What I did</dt><dd>On 5,752 observations of 2,289 clients (2018 to 2021): WoE encoding, selection by Information Value and stability over time (PSI), logistic regression without resampling, a points scorecard and a rating scale. Trained on 2018-2020, tested on 2021, with cross-validation grouped by client.</dd>
+      <dt>Result</dt><dd>The 2021 test revealed a data break: one ratio changed its distribution completely (PSI of 1.72). Without it, the scorecard stays calibrated: 2.0% predicted defaults for 2.2% observed. A gradient boosting challenger ranks clients better (AUC of 0.80).</dd>
     </dl>
     <a class="link" href="https://github.com/farahmkaouar-hue/scoring-credit">See the notebook on GitHub</a></div>
   </details>
 
   <details class="project" data-tags="risque">
-    <summary><div><h3>IFRS 9 and stress testing</h3><p class="what">Expected losses under 7 scenarios</p></div><span class="kind">ESSAI project</span><span class="sign">+</span></summary>
+    <summary><div><h3>IFRS 9 and stress testing</h3><p class="what">Expected losses under 7 scenarios</p></div><span class="kind">ESSAI project · 2026</span><span class="sign">+</span></summary>
     <div class="body"><dl>
       <dt>The problem</dt><dd>How much would a loan portfolio lose in a crisis?</dd>
       <dt>What I did</dt><dd>Estimated PD, LGD and EAD on a Lending Club portfolio, computed expected credit losses by IFRS 9 stage, then ran seven stress scenarios, including the 2008 crisis and COVID-19.</dd>
@@ -363,17 +374,27 @@ h2::after { content: ""; position: absolute; left: 0; bottom: 0; width: 36px; he
   </details>
 
   <details class="project" data-tags="actuariat">
-    <summary><div><h3>Motor insurance pricing and claims</h3><p class="what">Large claims, pure premium, prediction</p></div><span class="kind">ESSAI project</span><span class="sign">+</span></summary>
+    <summary><div><h3>Motor insurance pricing and claims</h3><p class="what">Large claims, pure premium, prediction</p></div><span class="kind">ESSAI project · 2026</span><span class="sign">+</span></summary>
     <div class="body"><dl>
       <dt>The problem</dt><dd>Pricing motor insurance when a few very expensive claims distort the averages.</dd>
       <dt>What I did</dt><dd>Quality checks on about 21,600 contracts, separation of large claims with the POT method (generalised Pareto distribution), pure premium calculation, then prediction of claim occurrence on 58,592 policies.</dd>
-      <dt>Result</dt><dd>A pure premium of €763 per policy-year. Predicting claims remains hard (AUC around 0.62): the available variables explain only a small part of the risk.</dd>
+      <dt>Result</dt><dd>A pure premium of €763 per policy-year. For prediction, six models tuned without data leakage reach an AUC of about 0.66: targeting 30% of policies captures half of the claims.</dd>
     </dl>
     <a class="link" href="https://github.com/farahmkaouar-hue/tarification-sinistres-auto">See the notebooks on GitHub</a></div>
   </details>
 
+  <details class="project" data-tags="actuariat ia">
+    <summary><div><h3>Insurance cross-selling</h3><p class="what">381,109 health policyholders</p></div><span class="kind">Project · 2026</span><span class="sign">+</span></summary>
+    <div class="body"><dl>
+      <dt>The problem</dt><dd>Which health insurance customers would be interested in motor insurance? Only 12% are.</dd>
+      <dt>What I did</dt><dd>Leakage-free pipelines, five resampling methods tuned and compared, feature selection specific to each model, four tuned models and a decision threshold chosen on the training data. Interpretation with SHAP, LIME and counterfactuals.</dd>
+      <dt>Result</dt><dd>AUC of 0.85 on the test set: contacting 30% of customers reaches 78% of interested ones. The sales channel is the only lever the company can act on.</dd>
+    </dl>
+    <a class="link" href="https://github.com/farahmkaouar-hue/vente-croisee-assurance">See the notebook on GitHub</a></div>
+  </details>
+
   <details class="project" data-tags="ia risque">
-    <summary><div><h3>AI agent for credit pre-qualification</h3><p class="what">Team of two</p></div><span class="kind">ESSAI project</span><span class="sign">+</span></summary>
+    <summary><div><h3>AI agent for credit pre-qualification</h3><p class="what">Team of two</p></div><span class="kind">ESSAI project · 2026</span><span class="sign">+</span></summary>
     <div class="body"><dl>
       <dt>The problem</dt><dd>An assistant that answers credit requests must apply the bank's policy without ever making up an amount.</dd>
       <dt>What I did</dt><dd>An LLM agent that looks up the client's data, uses a loan simulator for calculations instead of estimating them, searches the credit policy and hands borderline cases to an advisor.</dd>
@@ -383,7 +404,7 @@ h2::after { content: ""; position: absolute; left: 0; bottom: 0; width: 36px; he
   </details>
 
   <details class="project" data-tags="ia actuariat">
-    <summary><div><h3>ActuaNLP</h3><p class="what">Reading insurers' annual reports automatically, team of two</p></div><span class="kind">ESSAI project</span><span class="sign">+</span></summary>
+    <summary><div><h3>ActuaNLP</h3><p class="what">Reading insurers' annual reports automatically, team of two</p></div><span class="kind">ESSAI project · 2026</span><span class="sign">+</span></summary>
     <div class="body"><dl>
       <dt>The problem</dt><dd>The key figures of Tunisian insurers are locked in PDF annual reports.</dd>
       <dt>What I did</dt><dd>A pipeline that reads 48 reports (OCR, finding the right pages, extracting tables), checks the amounts against accounting identities and computes ratios for 15 companies.</dd>
@@ -393,7 +414,7 @@ h2::after { content: ""; position: absolute; left: 0; bottom: 0; width: 36px; he
   </details>
 
   <details class="project" data-tags="ia">
-    <summary><div><h3>Fair price of an Airbnb listing</h3><p class="what">485,128 listings in 15 cities</p></div><span class="kind">Project</span><span class="sign">+</span></summary>
+    <summary><div><h3>Fair price of an Airbnb listing</h3><p class="what">485,128 listings in 15 cities</p></div><span class="kind">Project · 2026</span><span class="sign">+</span></summary>
     <div class="body"><dl>
       <dt>The problem</dt><dd>Estimate the fair price of a listing, and check whether the model holds in a city it has never seen.</dd>
       <dt>What I did</dt><dd>Cleaned the Inside Airbnb data, analysed reviews, compared a LightGBM model with a neural network, and built 90% price ranges.</dd>
@@ -423,9 +444,10 @@ h2::after { content: ""; position: absolute; left: 0; bottom: 0; width: 36px; he
   </details>
 
   <details class="project" data-tags="ia">
-    <summary><div><h3>Product scraping and analysis</h3><p class="what">About 330 cosmetic products</p></div><span class="kind">Project</span><span class="sign">+</span></summary>
+    <summary><div><h3>Product scraping and analysis</h3><p class="what">288 cosmetic products, automated collection</p></div><span class="kind">Project · 2025</span><span class="sign">+</span></summary>
     <div class="body"><dl>
-      <dt>What I did</dt><dd>Collected products from an online shop with Selenium, segmented them with K-Means and predicted prices from the product descriptions.</dd>
+      <dt>What I did</dt><dd>A Selenium scraper that runs in one command, then an analysis with nested cross-validation: what drives prices, recognising best-sellers, and K-Means segmentation.</dd>
+      <dt>Result</dt><dd>Category and labels explain 43% of price differences. The product page alone is not enough to recognise a best-seller (AUC of 0.65).</dd>
     </dl>
     <a class="link" href="https://github.com/farahmkaouar-hue/scraping-analyse-ecommerce">See the notebooks on GitHub</a></div>
   </details>
